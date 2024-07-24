@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask PDF and Query Chat Interface</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 80vh;
+            border: 1px solid #ddd;
+            padding: 15px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            background-color: #f9f9f9;
+        }
+        .chat-message {
+            margin: 10px 0;
+        }
+        .chat-message.user {
+            text-align: right;
+        }
+        .chat-message .message {
+            display: inline-block;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .chat-message.user .message {
+            background-color: #007bff;
+            color: white;
+        }
+        .chat-message.bot .message {
+            background-color: #f1f1f1;
+        }
+        .chat-input {
+            display: flex;
+        }
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+        }
+        .chat-input button {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>ChatX</h1>
+        <div class="chat-container">
+            {% if pdf_text %}
+                <div class="chat-message bot">
+                    <div class="message">
+                        <pre>{{ pdf_text }}</pre>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if query_response %}
+                <div class="chat-message bot">
+                    <div class="message">
+                        {{ query_response }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <form class="chat-input" method="post" enctype="multipart/form-data">
+            <input type="text" class="form-control" id="query" name="query" placeholder="Type your query here...">
+            <input type="file" class="form-control-file" id="file" name="file">
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+    </div>
+</body>
+</html>
